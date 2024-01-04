@@ -32,12 +32,13 @@ from selenium.webdriver.support.wait import WebDriverWait
 OPENAI_API_KEY = st.secrets['OPENAI_API_KEY'] 
 
 # write all the functions here and include @st.cache_resource(show_spinner=False) before def line
+@st.cache_resource(show_spinner=False)
 def validate_user_credentials(username, password):
     # Replace this with your validation logic
     return username == "Skepitglobal" and password == "Skepitglobal"
 
 
-@st.cache_data
+@st.cache_resource(show_spinner=False)
 def content_generator(restuarant_name, location, nature_of_cuisine, occasion, offer):
     prompt = f"You are a prompt engineering assistant. Create a Facebook post for resturant {restuarant_name} at location {location} and my nature of cuisine is {nature_of_cuisine} for the {occasion} occasion and we are giving flat {offer} discount  and add relevant tags. Generate content without user involvement and limit to 50 words"
     #Generate content for the Facebook post using GPT-3.5 Turbo
@@ -55,7 +56,7 @@ def content_generator(restuarant_name, location, nature_of_cuisine, occasion, of
     #modified_content=st.text_area("Generated Facebook Post Content", content)
     
     
-@st.cache_data
+@st.cache_resource(show_spinner=False)
 def image_generator(other_keywords):
     api_key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjBjNjU0MjJhYzQ0ZWQ3OTM3ZTVhMTcyNzE2OTY1NjY1IiwiY3JlYXRlZF9hdCI6IjIwMjQtMDEtMDNUMTE6MTI6MjMuNDA0Mjg2In0.TWQjYNvxdNBUf_barngJ1ehEEpR4KlFL-z5k61b3SPI'  # Your API key here
     monster_client = client(api_key)
@@ -71,12 +72,12 @@ def image_generator(other_keywords):
         }
     result = monster_client.generate(model, input_data)
 
-    #image_urls = result['output']
-    image_urls = ["https://www.simplilearn.com/ice9/free_resources_article_thumb/Coca_Cola_Marketing_Strategy_2022.jpg"]
+    image_urls = result['output']
+    #image_urls = ["https://www.simplilearn.com/ice9/free_resources_article_thumb/Coca_Cola_Marketing_Strategy_2022.jpg"]
     return image_urls
 
 
-@st.cache_data(experimental_allow_widgets=True) 
+@st.cache_resource(show_spinner=False)
 def save_uploaded_file(uploaded_file):
     temp_dir = tempfile.gettempdir()
     file_path = os.path.join(temp_dir, uploaded_file.name)
@@ -85,7 +86,7 @@ def save_uploaded_file(uploaded_file):
     return file_path
 
 
-@st.cache_data(experimental_allow_widgets=True)    
+@st.cache_resource(show_spinner=False)  
 def login_to_facebook(App_name,restuarant_name,location,nature_of_cuisine,occasion,offer,other_keywords):
     global browser
 
