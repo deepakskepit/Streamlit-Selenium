@@ -1,4 +1,4 @@
-streamlit
+streamlit==1.29.0
 selenium
 numpy
 openai
@@ -7,3 +7,7 @@ schedule
 monsterapi
 MouseInfo
 facebook-sdk
+chromedriver_autoinstaller
+pandas
+pymongo
+beautifulsoup4==4.12.2
